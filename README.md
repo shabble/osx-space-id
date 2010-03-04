@@ -2,7 +2,7 @@ OSX Spaces Current Workspace
 ============================
 
 For a variety of useful and useless purposes when scripting in OSX, it
-might be handy to know which of the current Spaces (virtual desktops)
+might be handy to know which of the  Spaces (virtual desktops)
 you're currently on. You might want to move a window there, or do some
 other clever stuff (coming soon, maybe).
 
