@@ -43,4 +43,5 @@ I have no idea what happens if Spaces are disabled, or if you manage to invoke
 it from the Spaces Expose screen, or other weird edge cases. Submissions
 welcomed.
 
-
+I have no idea if this will behave correctly on Snow Leopard, I'm still running
+10.5.8
