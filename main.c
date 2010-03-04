@@ -7,7 +7,6 @@
 #include <Carbon/Carbon.h>
 #include <stdio.h>
 
-//--------------------------------------------------------------------------------------------
 int main(int argc, char* argv[]) {
  	CFArrayRef winList = 
 	    CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
@@ -20,7 +19,7 @@ int main(int argc, char* argv[]) {
 			const void *thing = CFDictionaryGetValue(winDict, kCGWindowWorkspace);
 			CFNumberRef numRef = (CFNumberRef)thing;
 			CFNumberGetValue(numRef, kCFNumberIntType, &num);
-			fprintf(stderr, "Current Space ID: %d\n", num);
+			fprintf(stdout, "Current Space ID: %d\n", num);
 			break;
 		}
 	}
