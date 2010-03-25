@@ -8,6 +8,16 @@
 #include <stdio.h>
 
 int main(int argc, char* argv[]) {
+
+    int quiet_mode = 0;
+
+    /* process the 'quiet' option */
+    if (argc > 1) {
+        if (strncmp(argv[1], "-q", 2) == 0) {
+            quiet_mode = 1;
+        }
+    }
+
  	CFArrayRef winList = 
 	    CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
 	int len = CFArrayGetCount(winList);
@@ -19,7 +29,13 @@ int main(int argc, char* argv[]) {
 			const void *thing = CFDictionaryGetValue(winDict, kCGWindowWorkspace);
 			CFNumberRef numRef = (CFNumberRef)thing;
 			CFNumberGetValue(numRef, kCFNumberIntType, &num);
-			fprintf(stdout, "Current Space ID: %d\n", num);
+
+            if (quiet_mode == 1) {
+                fprintf(stdout, "%d\n", num);
+            } else {
+                fprintf(stdout, "Current Space ID: %d\n", num);
+            }
+
 			break;
 		}
 	}
