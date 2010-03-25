@@ -39,6 +39,9 @@ number is also the return code of the program for ease of use in scripting
 apps.  If the space cannot be identified for whatever reason, it will be
 returned as `0`.
 
+If you call spacefinder with the `-q` option, it will enter quiet mode and
+only print the space number (matching `/^\d+$/`)
+
 I have no idea what happens if Spaces are disabled, or if you manage to invoke
 it from the Spaces Expose screen, or other weird edge cases. Submissions
 welcomed.
