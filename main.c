@@ -11,12 +11,12 @@ int main(int argc, char* argv[]) {
 
     int quiet_mode = 0;
 
-    /* process the 'quiet' option */
-    if (argc > 1) {
-        if (strncmp(argv[1], "-q", 2) == 0) {
-            quiet_mode = 1;
-        }
+  /* process the 'quiet' option */
+  if (argc > 1) {
+    if (strncmp(argv[1], "-q", 2) == 0) {
+      quiet_mode = 1;
     }
+  }
 
   CFArrayRef winList = 
     CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
