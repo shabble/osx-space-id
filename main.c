@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 			const void *thing = CFDictionaryGetValue(winDict, kCGWindowWorkspace);
 			CFNumberRef numRef = (CFNumberRef)thing;
 			CFNumberGetValue(numRef, kCFNumberIntType, &num);
-
+  
             if (quiet_mode == 1) {
                 fprintf(stdout, "%d\n", num);
             } else {
@@ -39,5 +39,6 @@ int main(int argc, char* argv[]) {
 			break;
 		}
 	}
+
 	return num;
 }
