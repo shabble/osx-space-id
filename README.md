@@ -1,13 +1,22 @@
 OSX Spaces Current Workspace
 ============================
 
+[Original code is from shabble, with some updates from canadaduane]
+
 For a variety of useful and useless purposes when scripting in OSX, it
 might be handy to know which of the  Spaces (virtual desktops)
-you're currently on. You might want to move a window there, or do some
-other clever stuff (coming soon, maybe).
+you're currently on. You may also wish to programmatically switch spaces
+from the command line.
 
 To the best of my knowledge, the necessary ID is not programatically accessible
 without jumping through a few hoops.
+
+[Meeu Labs](http://meeu.me/blog/dashboard-expose-spaces) has some interesting
+information regarding hacking undocumented Mac OS X APIs.  This command-line
+tool currently uses [CGSPrivate.h](http://code.google.com/p/undocumented-goodness/source/browse/trunk/CoreGraphics/CGSPrivate.h)
+to switch spaces.  It suffers from two signficant drawbacks, however:
+  1. there is no transition animation
+  2. focus remains on the window before the switch
 
 [Mac OSX Hints](http://www.macosxhints.com/article.php?story=20080227075244778)
 has one possible solution, which uses the Assistive Devices support to rip the
