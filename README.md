@@ -23,6 +23,17 @@ its internal metadata dictionary to find its workspace ID.
 
 The latter is the method implemented here.
 
+## Binary Install
+
+1. Download the compiled binary
+1. Double-click to mount the image file
+1. Drag the `spaces-util` onto the `Binaries Folder`
+1. Enter your password if prompted (The `Binaries Folder` link points to your
+   `/usr/local/bin`, which you may require Administrator rights to write to.
+1. After copying, eject the disk image, which can now be deleted.
+1. If you do not want to install the program globally, copy it to somewhere
+   in your local `$PATH`.
+   
 ## Compilation
 
 Compile with:
@@ -31,12 +42,16 @@ Compile with:
 
 and run with:
 
-`$ ./spacefinder`
+`$ ./spaces-util [options]`
 
 or copy it to somewhere in your `$PATH`.  There is currently no install target
 in the Makefile.
 
 ## Usage & Options
+
+If you have copied the program to a directory in your `$PATH`, you can invoke it
+with simply `$ spaces-util [options]`. Otherwise, you must navigate to the
+compile or copy directory, or invoke it with a full path.
 
 * `-a` animates space transition (only when `-s` is used)
 * `-q` quiet mode, prints a single number with the current space ID
@@ -53,11 +68,11 @@ which matches the regex `/^Current Space ID: \d+$/`. If you pass the
 `-r` option, the return value of the program is set to the current Space number
 for ease of use in scripting.
 
-For example, in Bash: `$ ./spacefinder -r -qq; echo $?` will print the Space
+For example, in Bash: `$ ./spaces-util -r -qq; echo $?` will print the Space
 number apps.  If the space cannot be determined for any reason, it will be
 returned as -1 (255).
 
-If you call spacefinder with the `-q` option, it will enter quiet mode and
+If you call spaces-util with the `-q` option, it will enter quiet mode and
 only print the space number (matching `/^\d+$/`). The silent version (`-qq`)
 will print nothing to `STDOUT`, and any error messages will be printed to
 `STDERR`.  Silent is generally only useful if you're switching Spaces, or
@@ -79,7 +94,7 @@ It is set to -1 (255) for any failure.
 
 ### Setting Spaces ID
 
-spacefinder now supports switching to other Spaces via the `-s` option.
+spaces-util now supports switching to other Spaces via the `-s` option.
 Specifying `-s <num>` on its own will switch directly to that space, without
 any transitional animation. The `-a` (animate) flag enables the usual "slide"
 transition effect.
