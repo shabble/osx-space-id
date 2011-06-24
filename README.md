@@ -2,7 +2,7 @@
 
 Original code is by [shabble](https://github.com/shabble), with some updates
 from [canadaduane](https://github.com/chicagoduane), animated switching code
-and dimension retrival inspired by a blog post from
+and dimension retrieval inspired by a blog post from
 [Denis Gryzlov](http://meeu.me/blog/dashboard-expose-spaces).
 
 For a variety of useful and useless purposes when scripting in OSX, it
