@@ -1,9 +1,9 @@
 # Command-line OSX Spaces Manipulation Tool
 
-Original code is by [[shabble|https://github.com/shabble]], with some updates
-from [[canadaduane|https://github.com/chicagoduane]], animated switching code
+Original code is by [shabble](https://github.com/shabble), with some updates
+from [canadaduane](https://github.com/chicagoduane), animated switching code
 and dimension retrival inspired by a blog post from
-[[Denis Gryzlov|http://meeu.me/blog/dashboard-expose-spaces]].
+[Denis Gryzlov](http://meeu.me/blog/dashboard-expose-spaces).
 
 For a variety of useful and useless purposes when scripting in OSX, it
 might be handy to know which of the  Spaces (virtual desktops)
@@ -107,7 +107,7 @@ It's survived fairly rigorous use on Leopard (10.5.8), and the fetch functions
 apparently work on Snow Leopard too.  The setting functions there are as-yet
 untested.  If you find it works/doesn't work, please leave me a message
 or add something to the
-[[issues|https://github.com/shabble/osx-space-id/issues]]
+[issues](https://github.com/shabble/osx-space-id/issues)
 page so I can update this statement with better data.
 
 Currently there's no binary available.  If there's any interest, I can
