@@ -12,10 +12,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *  
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *  
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -36,13 +36,13 @@
 /* definitions for a couple of useful functions, from
  * http://meeu.me/blog/dashboard-expose-spaces
  */
- 
+
 void CoreDockSendNotification(NSString *notificationName);
 BOOL CoreDockGetWorkspacesEnabled();
 void CoreDockGetWorkspacesCount(int *rows, int *columns);
 
 void set_space(int space, BOOL animate) {
-  
+
     if (animate) {
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
         /* code for animated switching found here:
@@ -52,7 +52,7 @@ void set_space(int space, BOOL animate) {
         NSString *spaceID = [NSString stringWithFormat:@"%d", (int)space-1];
         NSNotificationCenter *dCenter = [NSDistributedNotificationCenter defaultCenter];
         [dCenter postNotificationName:noteName object:spaceID];
-        
+
         [pool drain];
     } else {
         CGSConnection conn = _CGSDefaultConnection();
@@ -62,9 +62,9 @@ void set_space(int space, BOOL animate) {
 }
 
 int get_space() {
-    CFArrayRef winList = 
+    CFArrayRef winList =
         CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
-  
+
     int len = CFArrayGetCount(winList);
     int i, num = 0;
     for (i = 0; i < len; i++) {
@@ -95,7 +95,7 @@ void show_help_and_exit() {
 }
 
 int main(int argc, char* argv[]) {
-  
+
     BOOL quiet_mode         = NO;
     BOOL silent_mode        = NO;
     BOOL animate_transition = NO;
@@ -123,7 +123,7 @@ int main(int argc, char* argv[]) {
         case 'h':
             show_help_and_exit();
             break;
-            
+
         case 'n':
             display_dimensions = YES;
             break;
@@ -132,7 +132,7 @@ int main(int argc, char* argv[]) {
             break;
         case 'q':
             quiet_mode = YES;
-            
+
             /* seen for the 2nd time */
             if (quiet_mode == YES) {
                 silent_mode = YES;
@@ -161,7 +161,9 @@ int main(int argc, char* argv[]) {
             return -1;
         }
     }
-  
+
+    space = get_space();
+    printf("Args: dims:%d set:%d quiet:%d silent:%d ret:%d\n");
     if (space > 0 && should_set_space) { /* set space */
         if (space > num_spaces) {
             fprintf(stderr, "Cannot switch beyond maximum number of spaces\n");
@@ -171,25 +173,16 @@ int main(int argc, char* argv[]) {
         set_space(space, animate_transition);
 
         if (!quiet_mode) {
-            fprintf(stdout, "Switched to %d\n", space);
+            fprintf(stdout, "Switched to %li\n", space);
         }
-        
+
         return 0;
 
     } else { /* get space */
 
-        space = get_space();
-
-        if (quiet_mode) {
-            if (!silent_mode) {
-                fprintf(stdout, "%d\n", space);
-            }
-        } else {
-            fprintf(stdout, "Current Space ID: %d\n", space);
-        }
-
         if (display_dimensions) {
             if (rows > 0 && cols > 0) {
+
                 if (quiet_mode) {
                     if (!silent_mode) {
                         fprintf(stdout, "%dx%d\n", rows, cols);
@@ -201,6 +194,14 @@ int main(int argc, char* argv[]) {
             } else {
                 fprintf(stderr, "Could not determine the Spaces dimensions\n");
                 return -1;
+            }
+        } else {
+            if (quiet_mode) {
+                if (!silent_mode) {
+                    fprintf(stdout, "%li\n", space);
+                }
+            } else {
+                fprintf(stdout, "Current Space ID: %li\n", space);
             }
         }
 
