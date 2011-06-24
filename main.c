@@ -41,7 +41,7 @@ void CoreDockSendNotification(NSString *notificationName);
 BOOL CoreDockGetWorkspacesEnabled();
 void CoreDockGetWorkspacesCount(int *rows, int *columns);
 
-void set_space(int space, BOOL animate) {
+void set_space(long space, BOOL animate) {
 
     if (animate) {
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -49,7 +49,7 @@ void set_space(int space, BOOL animate) {
            http://meeu.me/blog/dashboard-expose-spaces
         */
         NSString *noteName = @"com.apple.switchSpaces";
-        NSString *spaceID = [NSString stringWithFormat:@"%d", (int)space-1];
+        NSString *spaceID = [NSString stringWithFormat:@"%li", space - 1];
         NSNotificationCenter *dCenter = [NSDistributedNotificationCenter defaultCenter];
         [dCenter postNotificationName:noteName object:spaceID];
 
@@ -61,7 +61,7 @@ void set_space(int space, BOOL animate) {
 
 }
 
-int get_space() {
+int get_space_via_keywin() {
     CFArrayRef winList =
         CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
 
@@ -70,13 +70,13 @@ int get_space() {
     for (i = 0; i < len; i++) {
         CFDictionaryRef winDict = CFArrayGetValueAtIndex(winList, i);
         if (CFDictionaryContainsKey(winDict, kCGWindowWorkspace)) {
-            //fprintf(stderr, "Yay, contains that key for i: %d\n", i);
             const void *thing = CFDictionaryGetValue(winDict, kCGWindowWorkspace);
             CFNumberRef numRef = (CFNumberRef)thing;
             CFNumberGetValue(numRef, kCFNumberIntType, &num);
             return num;
         }
     }
+    return -1;
 }
 
 void show_help_and_exit() {
@@ -131,12 +131,11 @@ int main(int argc, char* argv[]) {
             use_return_value = YES;
             break;
         case 'q':
-            quiet_mode = YES;
-
             /* seen for the 2nd time */
             if (quiet_mode == YES) {
                 silent_mode = YES;
             }
+            quiet_mode = YES;
             break;
         case 'a':
             animate_transition = YES;
@@ -162,8 +161,10 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    space = get_space();
-    printf("Args: dims:%d set:%d quiet:%d silent:%d ret:%d\n");
+/*    printf("Args: dims:%d set:%d quiet:%d silent:%d ret:%d\n",
+           display_dimensions, should_set_space, quiet_mode,
+           silent_mode, use_return_value); */
+
     if (space > 0 && should_set_space) { /* set space */
         if (space > num_spaces) {
             fprintf(stderr, "Cannot switch beyond maximum number of spaces\n");
@@ -179,6 +180,8 @@ int main(int argc, char* argv[]) {
         return 0;
 
     } else { /* get space */
+
+        space = get_space_via_keywin();
 
         if (display_dimensions) {
             if (rows > 0 && cols > 0) {
