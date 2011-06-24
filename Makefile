@@ -7,7 +7,9 @@ CFLAGS = -x objective-c -arch i386 -fmessage-length=0 -std=c99 \
 		 -Wall
 .PHONY: clean
 
-spacefinder: main.c Makefile
-	gcc $(CFLAGS) -o spacefinder $< 
+spaces-util: main.c Makefile
+	gcc $(CFLAGS) -o spaces-util $< 
+package: spaces-util
+	./make_dmg.sh
 clean:
-	-rm spacefinder
+	-rm spacefinder spaces-util
